@@ -10,6 +10,7 @@ router.post('/', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-access-token");
     // find the user
+    console.log(req.body);
     User.findOne({
         username: req.body.username
     }, function (err, user) {
@@ -19,7 +20,6 @@ router.post('/', function (req, res) {
         if (!user) {
             res.json({success: false, message: 'Authentication failed. User not found.'});
         } else if (user) {
-            console.log(user)
             // check if password matches
             if (user.password != req.body.password) {
                 res.json({success: false, message: 'Authentication failed. Wrong password.'});
@@ -27,7 +27,9 @@ router.post('/', function (req, res) {
 
                 // if user is found and password is right
                 // create a token
-                console.log(req.app.get('superSecret'));
+                console.log(1111111111);
+                console.log(req.get('origin'));
+                console.log(1111111111);
                 var token = jwt.sign(user, req.app.get('superSecret'));
 
                 // return the information including token as JSON

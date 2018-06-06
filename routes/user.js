@@ -9,7 +9,7 @@ var User = require('../models/user');
 
 /* get all tables */
 router.get('/', function(req, res, next) {
-    User.find({}, function(err, data){
+    User.find({}, { password: 0 }, function(err, data){
         res.json(data);
     })
 });
